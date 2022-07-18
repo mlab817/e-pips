@@ -14,9 +14,10 @@ app.use(express.json());
 app.use(require("./routes/record"));
 
 // Global error handling
-app.use(function (err, _req, res) {
-  console.error(err.stack);
-  res.status(500).send('Something broke!');
+app.use((error, req, res, next) => {
+  console.log("Error Handling Middleware called")
+  console.log('Path: ', req.path)
+  next() // (optional) invoking next middleware
 });
 
 // perform a database connection when the server starts

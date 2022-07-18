@@ -10,7 +10,16 @@ let dbConnection;
 
 module.exports = {
   connectToServer: function (callback) {
-    // Implement Database connection
+    client.connect(function (err, db) {
+      if (err || !db) {
+        return callback(err);
+      }
+
+      dbConnection = db.db("sample_airbnb");
+      console.log("Successfully connected to MongoDB.");
+
+      return callback();
+    });
   },
 
   getDb: function () {
